@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: garbagecollectionservice-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: garbagecollectionservice
+  template:
+    metadata:
+      labels:
+        app: garbagecollectionservice
+    spec:
+      containers:
+      - name: garbagecollectionservice
+        image: ricardojcsampaio/garbagecollectionservice:latest
+
+---
+apiVersion: v1
+kind: Service
+metadata: 
+  name: garbagecollection-clusterip-srv
+spec:
+  type: ClusterIP
+  selector: 
+    app: garbagecollectionservice
+  ports:
+  - name: garbagecollectionservice
+    protocol: TCP
+    port: 80
+    targetPort: 80

@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: logging-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: loggingservice
+  template:
+    metadata:
+      labels:
+        app: loggingservice
+    spec:
+      containers:
+      - name: loggingservice
+        image: ricardojcsampaio/loggingservice:latest
+
+---
+apiVersion: v1
+kind: Service
+metadata: 
+  name: logging-clusterip-srv
+spec:
+  type: ClusterIP
+  selector: 
+    app: loggingservice
+  ports:
+  - name: loggingservice
+    protocol: TCP
+    port: 80
+    targetPort: 80

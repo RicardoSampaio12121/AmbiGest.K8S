@@ -24,3 +24,24 @@ spec:
                 name: credentials-clusterip-srv
                 port:
                   number: 80
+          - path: /api/users
+            pathType: Prefix
+            backend:
+              service:
+                name: users-clusterip-srv
+                port:
+                  number: 80
+          - path: /readings
+            pathType: Prefix
+            backend:
+              service:
+                name: readings-clusterip-srv
+                port:
+                  number: 80
+          - path: /garbageCollection
+            pathType: Prefix
+            backend:
+              service:
+                name: garbagecollection-clusterip-srv
+                port:
+                  number: 80

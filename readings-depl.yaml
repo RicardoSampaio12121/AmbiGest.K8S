@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: readings-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: readingsservice
+  template:
+    metadata:
+      labels:
+        app: readingsservice
+    spec:
+      containers:
+      - name: readingsservice
+        image: ricardojcsampaio/readingsservice:latest
+
+---
+apiVersion: v1
+kind: Service
+metadata: 
+  name: readings-clusterip-srv
+spec:
+  type: ClusterIP
+  selector: 
+    app: readingsservice
+  ports:
+  - name: readingsservice
+    protocol: TCP
+    port: 80
+    targetPort: 80
